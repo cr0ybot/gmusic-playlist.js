@@ -895,10 +895,12 @@ GMusic.prototype = {
             var arr = JSON.parse(response);
             var playlistArr = arr[1][0];
             var songlists = [];
-            playlistArr.forEach(function(playlist){
-                songlists.push(new Converter().arrayToObject(
-                    playlist,new Songlist(),['id','name']));
-            });
+            if (playlistArr) {
+                playlistArr.forEach(function(playlist){
+                    songlists.push(new Converter().arrayToObject(
+                        playlist,new Songlist(),['id','name']));
+                });
+            }
             return songlists;
         };
         return this._req("services/loadplaylists",[]).then(genSonglists);
